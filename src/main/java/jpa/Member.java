@@ -1,28 +1,35 @@
 package jpa;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Member {
 
     @Id
-    public Long id;
-    private String name;
+    private Long id;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name="name")
+    private String username;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Integer age;
 
-    public String getName() {
-        return name;
-    }
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
 
-    public void setName(String name) {
-        this.name = name;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
+
+//    DATE, 날짜
+//    TIME, 시간
+//    TIMESTAMP; 날짜시간
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+
+    @Lob //large object 문자열 clob 그외 blob
+    private String description;
+
+    public Member() {
     }
 }
