@@ -1,35 +1,48 @@
 package jpa;
 
+import jdk.jfr.Name;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class Member {
 
-    @Id
+    @Id @GeneratedValue
+    @Column(name = "MEMBER_ID")
     private Long id;
 
-    @Column(name="name")
+    @Column(name="USERNAME")
     private String username;
 
-    private Integer age;
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    @ManyToOne //맴버입자에서는 many team입장에서는 one
+    @JoinColumn(name = "TEAM_ID")  // TEAM의 PK값 -> MEMBER.TEAM_ID(FK)
+    private Team team;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//    DATE, 날짜
-//    TIME, 시간
-//    TIMESTAMP; 날짜시간
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
+    public String getUsername() {
+        return username;
+    }
 
-    @Lob //large object 문자열 clob 그외 blob
-    private String description;
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public Member() {
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

@@ -14,7 +14,22 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member findMember = em.find(Member.class,1L);
+            //저장
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeam(team);
+            em.persist(member);
+            
+            //조회
+
+            Member findMember = em.find(Member.class,member.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("Asdf");
+
 
 
             tx.commit();
