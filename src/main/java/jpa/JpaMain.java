@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -25,10 +26,19 @@ public class JpaMain {
             em.persist(member);
             
             //조회
+            System.out.println("조회");
+
+            em.flush(); //영속성 컨텍스트의 내용을 db에 반영
+            em.clear(); //영속성컨텍스트 비우기
 
             Member findMember = em.find(Member.class,member.getId());
-            Team findTeam = findMember.getTeam();
-            System.out.println("Asdf");
+            List<Member> members = findMember.getTeam().getMembers();
+
+            System.out.println("-----------------------------------");
+            for (Member m: members  ) {
+                System.out.println("m = "+m.getUsername());
+            }
+
 
 
 
