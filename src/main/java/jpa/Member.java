@@ -22,6 +22,10 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")  // TEAM의 PK값 -> MEMBER.TEAM_ID(FK)
     private Team team;
 
+    @OneToOne //일대일
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
     public Long getId() {
         return id;
     }
