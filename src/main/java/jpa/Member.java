@@ -3,7 +3,9 @@ package jpa;
 import jdk.jfr.Name;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -25,6 +27,13 @@ public class Member {
     @OneToOne //일대일
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
+
+//    @ManyToMany //다대다
+//    @JoinColumn(name = "MEMBER_PRODUCT")
+//    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "member") //다대다 변환
+    private List<MemberProduct> memberProducts = new ArrayList<>();
+
 
     public Long getId() {
         return id;
